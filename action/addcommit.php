@@ -44,7 +44,7 @@ class action_plugin_gitcommit_addcommit extends DokuWiki_Action_Plugin {
     		msg("Basename " . $basename);
     		
     		$output = array();
-    		exec("/usr/bin/git add " . $basename, &$output);
+    		exec("/usr/bin/git add " . $basename, $output);
     		msg("Output1 <pre>" . print_r($output, TRUE) . "</pre>");
 
     		$output = array();
