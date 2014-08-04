@@ -48,7 +48,7 @@ class action_plugin_gitcommit_addcommit extends DokuWiki_Action_Plugin {
     		msg("Output1 <pre>" . print_r($output, TRUE) . "</pre>");
 
     		$output = array();
-    		exec("/usr/bin/git commit " . $basename . " -m 'Another'", &$output);
+    		exec("/usr/bin/git commit " . $basename . " -m 'Another'", $output);
     		msg("Output2 <pre>" . print_r($output, TRUE) . "</pre>");
     		
     		chdir($curr_dir);
