@@ -2,8 +2,6 @@ gitcommit Plugin for DokuWiki
 
 Adds and commits the file just changed
 
-Code based on http://www.dokuwiki.org/plugin:gitbacked.
-
 All documentation for this plugin can be found at
 http://www.distantshores.org
 
