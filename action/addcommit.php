@@ -36,6 +36,32 @@ class action_plugin_gitcommit_addcommit extends DokuWiki_Action_Plugin {
     	if (empty($event->data[3])) {
     		global $USERINFO;
     		$modified_file = $event->data[0][0];
+            $pageName = $event->data[2];
+            $pageContent = $event->data[0][1];
+
+            // get the summary directly from the form input
+            // as the metadata hasn't updated yet
+            $editSummary = $GLOBALS['INPUT']->str('summary');
+
+            // empty content indicates a page deletion
+            if ($pageContent == '') {
+                $msgTemplate = 'Page Delete: ';
+
+                // bad hack as DokuWiki deletes the file after this event
+                // thus, let's delete the file by ourselves, so git can recognize the deletion
+                // DokuWiki uses @unlink as well, so no error should be thrown if we delete it twice
+                @unlink($pagePath);
+
+            } else {
+                $msgTemplate = 'Page Edit: ';
+            }
+
+            $commit_message = str_replace(
+                array('%page%','%summary%','%user%'),
+                array($pageName,$editSummary,$USERINFO['name']),
+                $msgTemplate
+            );
+
     		$debug = $keyvalue = $this->getConf('debug');
     		
     		
@@ -54,8 +80,6 @@ class action_plugin_gitcommit_addcommit extends DokuWiki_Action_Plugin {
   	  		msg("Userinfo <pre>" . print_r($USERINFO, TRUE) . "</pre>");
   	  	}
 
-    		$commit_message = sprintf("\"User [%s]\nModified [%s]\"",
-    			$USERINFO['name'], $modified_file);
     		
     		$output = array();
     		exec("/usr/bin/git add " . $basename, $output, $rc);
