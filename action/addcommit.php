@@ -78,6 +78,7 @@ class action_plugin_gitcommit_addcommit extends DokuWiki_Action_Plugin {
     			msg("Event <pre>" . print_r($event, TRUE) . "</pre>");
 	    		msg("Param <pre>" . print_r($param, TRUE) . "</pre>");
   	  		msg("Userinfo <pre>" . print_r($USERINFO, TRUE) . "</pre>");
+  	  		msg("Commit msg <pre>" . print_r($commit_message, TRUE) . "</pre>");
   	  	}
 
     		
