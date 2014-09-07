@@ -45,7 +45,7 @@ class action_plugin_gitcommit_addcommit extends DokuWiki_Action_Plugin {
 
             // empty content indicates a page deletion
             if ($pageContent == '') {
-                $msgTemplate = 'Page Delete: ';
+                $actionType = 'Page Delete';
 
                 // bad hack as DokuWiki deletes the file after this event
                 // thus, let's delete the file by ourselves, so git can recognize the deletion
@@ -53,14 +53,11 @@ class action_plugin_gitcommit_addcommit extends DokuWiki_Action_Plugin {
                 @unlink($pagePath);
 
             } else {
-                $msgTemplate = 'Page Edit: ';
+                $actionType = 'Page Edit';
             }
 
-            $commit_message = str_replace(
-                array('%page%','%summary%','%user%'),
-                array($pageName,$editSummary,$USERINFO['name']),
-                $msgTemplate
-            );
+            $commit_message = sprintf("\"%s: %s, by [%s]\"",
+                $actionType, $editSummary,$USERINFO['name']);
 
     		$debug = $keyvalue = $this->getConf('debug');
     		
