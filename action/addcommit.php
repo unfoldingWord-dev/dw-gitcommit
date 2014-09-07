@@ -4,6 +4,7 @@
  *
  * @license GPL 2 http://www.gnu.org/licenses/gpl-2.0.html
  * @author  Dave Pearce <dave@distantshores.org>
+ * Updates  Jesse Griffin <jesse@distantshores.org>
  */
 
 // must be run within Dokuwiki
@@ -33,9 +34,9 @@ class action_plugin_gitcommit_addcommit extends DokuWiki_Action_Plugin {
      */
 
     public function handle_io_wikipage_write(Doku_Event &$event, $param) {
-    	if (empty($event->data[3])) {
-    		global $USERINFO;
-    		$modified_file = $event->data[0][0];
+        if (empty($event->data[3])) {
+            global $USERINFO;
+            $modified_file = $event->data[0][0];
             $pageName = $event->data[2];
             $pageContent = $event->data[0][1];
 
@@ -59,54 +60,54 @@ class action_plugin_gitcommit_addcommit extends DokuWiki_Action_Plugin {
             $commit_message = sprintf("\"%s: %s, by [%s]\"",
                 $actionType, $editSummary,$USERINFO['name']);
 
-    		$debug = $keyvalue = $this->getConf('debug');
-    		
-    		
-    		$curr_dir = getcwd();												// Save where I am now
-    		$dirname = dirname($modified_file);					// The dir or the file that was changed
-    		$basename = basename($modified_file);				// The filename of the file that was changed
-    		chdir($dirname);														// Change to the folder where the file changed
-    		
-    		if ($debug) {
-	    		msg("AllowDebug " . $debug);
-  	  		msg("Filename " . $modified_file);
-    			msg("Currdir " . getcwd());
-    			msg("Basename " . $basename);
-    			msg("Event <pre>" . print_r($event, TRUE) . "</pre>");
-	    		msg("Param <pre>" . print_r($param, TRUE) . "</pre>");
-  	  		msg("Userinfo <pre>" . print_r($USERINFO, TRUE) . "</pre>");
-  	  		msg("Commit msg <pre>" . print_r($commit_message, TRUE) . "</pre>");
-  	  	}
+            $debug = $keyvalue = $this->getConf('debug');
+            
+            
+            $curr_dir = getcwd();             // Save where I am now
+            $dirname = dirname($modified_file);  // The dir or the file that was changed
+            $basename = basename($modified_file);  // The filename of the file that was changed
+            chdir($dirname);  // Change to the folder where the file changed
+            
+            if ($debug) {
+                msg("AllowDebug " . $debug);
+                msg("Filename " . $modified_file);
+                msg("Currdir " . getcwd());
+                msg("Basename " . $basename);
+                msg("Event <pre>" . print_r($event, TRUE) . "</pre>");
+                msg("Param <pre>" . print_r($param, TRUE) . "</pre>");
+                msg("Userinfo <pre>" . print_r($USERINFO, TRUE) . "</pre>");
+                msg("Commit msg <pre>" . print_r($commit_message, TRUE) . "</pre>");
+            }
 
-    		
-    		$output = array();
-    		exec("/usr/bin/git add " . $basename, $output, $rc);
-    		if ($debug) {
-    			msg("Git add output [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
-    		}
+            
+            $output = array();
+            exec("/usr/bin/git add " . $basename, $output, $rc);
+            if ($debug) {
+                msg("Git add output [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
+            }
 
-    		$output = array();
-    		exec("/usr/bin/git commit " . $basename . " -m " . $commit_message, $output, $rc);
-    		if ($debug) {
-    			msg("Git commit output [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
-    		}    		
+            $output = array();
+            exec("/usr/bin/git commit " . $basename . " -m " . $commit_message, $output, $rc);
+            if ($debug) {
+                msg("Git commit output [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
+            }            
 
-    		$output = array();
-    		exec("/usr/bin/git pull", $output, $rc);
-    		if ($debug) {
-    			msg("git pull output [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
-    		}
-    		
-    		$output = array();
-    		exec("/usr/bin/git push", $output, $rc);
-    		if ($debug) {
-    			msg("git push output [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
-				}
-    		
-    		chdir($curr_dir);													// Change back to where we were
-    	}
-    	// msg("Event <pre>" . print_r($event, TRUE) . "</pre>");
-    	// msg("Param <pre>" . print_r($param, TRUE) . "</pre>");
+            $output = array();
+            exec("/usr/bin/git pull", $output, $rc);
+            if ($debug) {
+                msg("git pull output [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
+            }
+            
+            $output = array();
+            exec("/usr/bin/git push", $output, $rc);
+            if ($debug) {
+                msg("git push output [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
+                }
+            
+            chdir($curr_dir);                                                    // Change back to where we were
+        }
+        // msg("Event <pre>" . print_r($event, TRUE) . "</pre>");
+        // msg("Param <pre>" . print_r($param, TRUE) . "</pre>");
     }
 
 }
