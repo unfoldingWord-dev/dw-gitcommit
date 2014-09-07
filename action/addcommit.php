@@ -51,7 +51,7 @@ class action_plugin_gitcommit_addcommit extends DokuWiki_Action_Plugin {
                 // bad hack as DokuWiki deletes the file after this event
                 // thus, let's delete the file by ourselves, so git can recognize the deletion
                 // DokuWiki uses @unlink as well, so no error should be thrown if we delete it twice
-                @unlink($pagePath);
+                @unlink($modified_file);
 
             } else {
                 $actionType = 'Page Edit';
