@@ -8,3 +8,4 @@
 
 //$meta['fixme'] = array('string');
 
+$meta['debug'] = array('onoff');
