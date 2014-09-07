@@ -54,8 +54,8 @@ class action_plugin_gitcommit_addcommit extends DokuWiki_Action_Plugin {
   	  		msg("Userinfo <pre>" . print_r($USERINFO, TRUE) . "</pre>");
   	  	}
 
-    		$commit_message = sprintf("\"User [%s][%s]\nModified [%s]\nAt [%s]\n\"",
-    			$USERINFO['name'], $modified_file, date('c'));
+    		$commit_message = sprintf("\"User [%s]\nModified [%s]\"",
+    			$USERINFO['name'], $modified_file);
     		
     		$output = array();
     		exec("/usr/bin/git add " . $basename, $output, $rc);
