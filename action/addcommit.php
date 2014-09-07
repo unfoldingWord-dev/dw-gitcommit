@@ -84,25 +84,25 @@ class action_plugin_gitcommit_addcommit extends DokuWiki_Action_Plugin {
     		$output = array();
     		exec("/usr/bin/git add " . $basename, $output, $rc);
     		if ($debug) {
-    			msg("Output1 [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
+    			msg("Git add output [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
     		}
 
     		$output = array();
     		exec("/usr/bin/git commit " . $basename . " -m " . $commit_message, $output, $rc);
     		if ($debug) {
-    			msg("Output2 [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
+    			msg("Git commit output [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
     		}    		
 
     		$output = array();
     		exec("/usr/bin/git pull", $output, $rc);
     		if ($debug) {
-    			msg("Output4 [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
+    			msg("git pull output [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
     		}
     		
     		$output = array();
     		exec("/usr/bin/git push", $output, $rc);
     		if ($debug) {
-    			msg("Output3 [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
+    			msg("git push output [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
 				}
     		
     		chdir($curr_dir);													// Change back to where we were
