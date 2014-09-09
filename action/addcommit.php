@@ -57,8 +57,8 @@ class action_plugin_gitcommit_addcommit extends DokuWiki_Action_Plugin {
                 $actionType = 'Page Edit';
             }
 
-            $commit_message = sprintf("\"%s: %s [%s]\"",
-                $actionType, $editSummary,$USERINFO['name']);
+            $commit_message = sprintf("\"%s [%s]: %s [%s]\"",
+                $actionType, $pageName, $editSummary,$USERINFO['name']);
 
             $debug = $keyvalue = $this->getConf('debug');
             
