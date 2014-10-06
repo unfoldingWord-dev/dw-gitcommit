@@ -93,13 +93,13 @@ class action_plugin_gitcommit_addcommit extends DokuWiki_Action_Plugin {
             }            
 
             $output = array();
-            exec("/usr/bin/git pull", $output, $rc);
+            exec("/usr/bin/git pull origin master", $output, $rc);
             if ($debug) {
                 msg("git pull output [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
             }
             
             $output = array();
-            exec("/usr/bin/git push", $output, $rc);
+            exec("/usr/bin/git push origin master", $output, $rc);
             if ($debug) {
                 msg("git push output [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
                 }
