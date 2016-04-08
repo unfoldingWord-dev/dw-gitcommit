@@ -99,7 +99,7 @@ class action_plugin_gitcommit_addcommit extends DokuWiki_Action_Plugin {
             }            
 
             $output = array();
-            exec("/usr/bin/git pull --no-edit origin master", $output, $rc);
+            exec("/usr/bin/git pull -X ours --no-edit origin master", $output, $rc);
             if ($debug) {
                 msg("git pull output [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
             }
