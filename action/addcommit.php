@@ -93,6 +93,12 @@ class action_plugin_gitcommit_addcommit extends DokuWiki_Action_Plugin {
             }            
 
             $output = array();
+            exec("/usr/bin/git commit -a -m \"Files changed on server\"", $output, $rc);
+            if ($debug) {
+                msg("Git commit output [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
+            }            
+
+            $output = array();
             exec("/usr/bin/git pull --no-edit origin master", $output, $rc);
             if ($debug) {
                 msg("git pull output [" . $rc . "] <pre>" . print_r($output, TRUE) . "</pre>");
